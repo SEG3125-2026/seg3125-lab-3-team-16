@@ -2,28 +2,23 @@
    Different UI patterns: Sidebar navigation, Modals, Tabs, Accordion */
 
 :root {
-  --primary: #2d8659;
-  --secondary: #f4a261;
-  --bg: #f8f9fa;
+  --primary: #4f46e5;
+  --bg: #f3f4f6;
   --card: #ffffff;
-  --text: #333333;
-  --border: #e0e0e0;
-  --sidebar-width: 250px;
+  --sidebar-width: 200px;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: var(--bg);
-  color: var(--text);
   display: flex;
   min-height: 100vh;
-  transition: all 0.3s ease;
 }
 
 body.large-text {
@@ -39,68 +34,62 @@ body.large-text {
   height: 100vh;
   left: 0;
   top: 0;
-  transition: transform 0.3s ease;
   z-index: 1000;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
 
 .sidebar-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
 }
 
 .sidebar-header h1 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  text-align: center;
 }
 
 .sidebar-toggle {
   background: none;
   border: none;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   cursor: pointer;
   display: none;
+  padding: 0.5rem;
 }
 
 .sidebar-nav {
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 }
 
 .nav-item {
   width: 100%;
-  padding: 1rem 1.5rem;
+  padding: 0.8rem 1rem;
   background: none;
   border: none;
   color: white;
   text-align: left;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  transition: background 0.2s;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .nav-item:hover {
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
 }
 
 .nav-item.active {
-  background: rgba(255,255,255,0.2);
-  border-left: 4px solid var(--secondary);
+  background: rgba(255,255,255,0.25);
+  font-weight: bold;
 }
 
 .cart-badge {
-  background: var(--secondary);
-  color: var(--text);
-  padding: 0.2rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  margin-left: auto;
+  background: white;
+  color: var(--primary);
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
 }
 
 /* Main Content Area */
@@ -123,11 +112,11 @@ body.large-text {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-header h2 {
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: var(--primary);
 }
 
@@ -138,18 +127,17 @@ body.large-text {
 
 .accordion-btn {
   width: 100%;
-  padding: 1rem;
+  padding: 0.8rem;
   background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
   cursor: pointer;
   text-align: left;
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.2s;
 }
 
 .accordion-btn:hover {
@@ -159,11 +147,10 @@ body.large-text {
 .accordion-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
   background: var(--card);
-  border: 1px solid var(--border);
+  border: 1px solid #d1d5db;
   border-top: none;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 6px 6px;
 }
 
 .accordion-content.open {
@@ -196,21 +183,20 @@ body.large-text {
 /* Tabs Component - Alternative navigation pattern */
 .tabs {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-  border-bottom: 2px solid var(--border);
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e5e7eb;
   flex-wrap: wrap;
 }
 
 .tab-btn {
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1rem;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
   cursor: pointer;
-  font-size: 1rem;
-  color: var(--text);
-  transition: all 0.2s;
+  font-size: 0.9rem;
+  color: #333;
   margin-bottom: -2px;
 }
 
@@ -222,7 +208,7 @@ body.large-text {
 .tab-btn.active {
   color: var(--primary);
   border-bottom-color: var(--primary);
-  font-weight: 600;
+  font-weight: bold;
 }
 
 /* Products Grid */
@@ -234,10 +220,9 @@ body.large-text {
 
 .product-card {
   background: var(--card);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -245,8 +230,7 @@ body.large-text {
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .product-card img {
@@ -282,24 +266,25 @@ body.large-text {
   background: var(--primary);
   color: white;
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.6rem 1rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s;
+  font-size: 0.9rem;
   flex: 1;
 }
 
 .action-btn:hover {
-  background: #246b4a;
+  opacity: 0.9;
 }
 
 .action-btn.secondary {
-  background: var(--secondary);
+  background: #6b7280;
+  flex: 0;
+  padding: 0.4rem 0.8rem;
 }
 
 .action-btn.secondary:hover {
-  background: #e08947;
+  opacity: 0.9;
 }
 
 /* Cart Styles */
@@ -388,14 +373,14 @@ body.large-text {
 
 .modal-content {
   background: var(--card);
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 500px;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 450px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
-  animation: slideDown 0.3s;
+  border: 1px solid #d1d5db;
 }
 
 @keyframes fadeIn {
@@ -488,12 +473,11 @@ fieldset legend {
   left: var(--sidebar-width);
   right: 0;
   background: var(--card);
-  padding: 1rem;
+  padding: 0.8rem;
   text-align: center;
-  border-top: 1px solid var(--border);
-  font-size: 0.9rem;
-  color: #666;
-  transition: left 0.3s ease;
+  border-top: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+  color: #555;
 }
 
 /* Responsive Design */

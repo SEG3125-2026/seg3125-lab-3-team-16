@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>FreshMarket - Alternative Design</title>
+  <title>EasyGrocery - Alternative Design</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="./css/style.css">
 </head>
@@ -10,22 +10,14 @@
   <!-- Sidebar Navigation - Alternative to top navigation -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <h1>FreshMarket</h1>
+      <h1>EasyGrocery</h1>
       <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
     </div>
     <nav class="sidebar-nav">
-      <button class="nav-item active" onclick="showSection('products')">
-        <span>🛒</span> Products
-      </button>
-      <button class="nav-item" onclick="showSection('cart')">
-        <span>🛍️</span> Cart <span class="cart-badge" id="cartBadge">0</span>
-      </button>
-      <button class="nav-item" onclick="openLoginModal()">
-        <span>👤</span> Login
-      </button>
-      <button class="nav-item" onclick="openPreferencesModal()">
-        <span>⚙️</span> Preferences
-      </button>
+      <button class="nav-item active" onclick="showSection('products')">Products</button>
+      <button class="nav-item" onclick="showSection('cart')">Cart <span class="cart-badge" id="cartBadge">0</span></button>
+      <button class="nav-item" onclick="openLoginModal()">Login</button>
+      <button class="nav-item" onclick="openPreferencesModal()">Preferences</button>
     </nav>
   </aside>
 

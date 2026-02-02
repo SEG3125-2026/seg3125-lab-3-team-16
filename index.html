@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FreshMarket - Alternative Design</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- Sidebar Navigation - Alternative to top navigation -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h1>FreshMarket</h1>
+      <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()">☰</button>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" onclick="showSection('products')">
+        <span>🛒</span> Products
+      </button>
+      <button class="nav-item" onclick="showSection('cart')">
+        <span>🛍️</span> Cart <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="nav-item" onclick="openLoginModal()">
+        <span>👤</span> Login
+      </button>
+      <button class="nav-item" onclick="openPreferencesModal()">
+        <span>⚙️</span> Preferences
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <!-- Products Section with Tabs -->
+    <section id="products-section" class="content-section active">
+      <div class="section-header">
+        <h2>Our Products</h2>
+        <div class="filter-accordion">
+          <button class="accordion-btn" onclick="toggleAccordion('filterAccordion')">
+            Filter Products <span id="filterAccordionIcon">▼</span>
+          </button>
+          <div class="accordion-content" id="filterAccordion">
+            <div class="filter-group">
+              <h4>Dietary Restrictions</h4>
+              <label><input type="checkbox" name="diet" value="vegetarian" onchange="applyFilters()"> Vegetarian</label>
+              <label><input type="checkbox" name="diet" value="vegan" onchange="applyFilters()"> Vegan</label>
+              <label><input type="checkbox" name="diet" value="gluten" onchange="applyFilters()"> Gluten Free</label>
+              <label><input type="checkbox" name="diet" value="lactose" onchange="applyFilters()"> Lactose Free</label>
+              <label><input type="checkbox" name="diet" value="diabetes" onchange="applyFilters()"> Diabetic Friendly</label>
+              <label><input type="checkbox" name="diet" value="expense" onchange="applyFilters()"> Budget Friendly</label>
+            </div>
+            <div class="filter-group">
+              <h4>Product Type</h4>
+              <label><input type="radio" name="organic" value="organic" onchange="applyFilters()"> Organic Only</label>
+              <label><input type="radio" name="organic" value="non-organic" onchange="applyFilters()"> Non-Organic Only</label>
+              <label><input type="radio" name="organic" value="na" checked onchange="applyFilters()"> All Products</label>
+            </div>
+            <div class="filter-group">
+              <label class="vision-toggle">
+                <input type="checkbox" id="visionToggle" onchange="toggleLargeText()">
+                Large Text Mode
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Navigation for Product Categories -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('all')">All Products</button>
+        <button class="tab-btn" onclick="switchTab('vegetables')">Vegetables</button>
+        <button class="tab-btn" onclick="switchTab('proteins')">Proteins</button>
+        <button class="tab-btn" onclick="switchTab('grains')">Grains</button>
+        <button class="tab-btn" onclick="switchTab('dairy')">Dairy</button>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-container" id="productsContainer">
+        <!-- Products will be dynamically rendered here -->
+      </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section id="cart-section" class="content-section">
+      <div class="section-header">
+        <h2>Shopping Cart</h2>
+        <button class="clear-cart-btn" onclick="clearCart()">Clear Cart</button>
+      </div>
+      <div class="cart-container" id="cartContainer">
+        <div class="empty-cart">
+          <p>Your cart is empty</p>
+          <button class="action-btn" onclick="showSection('products')">Start Shopping</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Login Modal - Alternative to inline form -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <span class="close" onclick="closeLoginModal()">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" required>
+        </div>
+        <button type="submit" class="action-btn">Login</button>
+      </form>
+      <p class="modal-hint">Try: "lucie" or "eric" for demo profiles</p>
+    </div>
+  </div>
+
+  <!-- Preferences Modal - Alternative to inline form -->
+  <div class="modal" id="preferencesModal">
+    <div class="modal-content">
+      <span class="close" onclick="closePreferencesModal()">&times;</span>
+      <h2>User Preferences</h2>
+      <form id="preferencesForm" onsubmit="handlePreferences(event)">
+        <fieldset>
+          <legend>Dietary Needs</legend>
+          <label><input type="checkbox" name="diet" value="vegetarian"> Vegetarian</label>
+          <label><input type="checkbox" name="diet" value="vegan"> Vegan</label>
+          <label><input type="checkbox" name="diet" value="gluten"> Gluten Free</label>
+          <label><input type="checkbox" name="diet" value="lactose"> Lactose Free</label>
+          <label><input type="checkbox" name="diet" value="diabetes"> Diabetic Friendly</label>
+          <label><input type="checkbox" name="diet" value="expense"> Budget Friendly</label>
+        </fieldset>
+        <fieldset>
+          <legend>Product Type</legend>
+          <label><input type="radio" name="organic" value="organic"> Organic</label>
+          <label><input type="radio" name="organic" value="non-organic"> Non-Organic</label>
+          <label><input type="radio" name="organic" value="na" checked> No Preference</label>
+        </fieldset>
+        <fieldset>
+          <legend>Accessibility</legend>
+          <label><input type="checkbox" id="modalVisionToggle" onchange="toggleLargeText()"> Large Text Mode</label>
+        </fieldset>
+        <button type="submit" class="action-btn">Save Preferences</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Website designed by Pierre Georges, Eknoor Goraya, and Ziad Tariq</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="./js/products.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

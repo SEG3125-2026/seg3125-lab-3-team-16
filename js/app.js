@@ -92,26 +92,109 @@ function handleLogin(event) {
     document.querySelector('input[value="vegetarian"]').checked = true;
     document.querySelector('input[value="expense"]').checked = true;
     document.querySelector('input[value="na"]').checked = true;
-    document.querySelector('#visionToggle').checked = true;
-    toggleLargeText();
+    if(!document.querySelector('#visionToggle').checked){
+      document.body.classList.add('large-text');
+    }
+    logedin();
     greeting = 'Hi Lucie! Your preferences have been set.';
   } else if (currentUser === 'eric') {
     document.querySelector('input[value="gluten"]').checked = true;
     document.querySelector('input[value="organic"]').checked = true;
     greeting = 'Hi Eric! Your preferences have been set.';
+    logedin();
   }
   
-  alert(greeting);
   closeLoginModal();
   applyFilters();
 }
+
+function logedin() {
+  const modal = document.getElementById('loginModal');
+  if (!modal) return;
+
+  const form = modal.querySelector('#loginForm');
+  const title = modal.querySelector('h2');
+  const hint = modal.querySelector('.modal-hint');
+  const submitBtn = modal.querySelector('button[type="submit"]');
+
+  // Find the existing input block (label + input) that contains #username
+  const usernameInput = modal.querySelector('#username');
+  const formGroup = usernameInput ? usernameInput.closest('.form-group') : null;
+
+  // Decide the display name (use your currentUser variable if you have it)
+  // Fallback: if you stored it in localStorage
+  const name =
+    (typeof currentUser === 'string' && currentUser.trim()) ? currentUser.trim() :
+    (localStorage.getItem('currentUser') || '').trim();
+
+  // If NOT logged in, keep it as login form (restore original UI)
+  if (!name) {
+    // Restore handler
+    if (form) form.setAttribute('onsubmit', 'handleLogin(event)');
+
+    // Restore title/hint/button text
+    if (title) title.textContent = 'Login';
+    if (hint) hint.textContent = 'Try: "lucie" or "eric" for demo profiles';
+    if (submitBtn) submitBtn.textContent = 'Login';
+
+    // If we previously replaced the form-group with a "Hi" block, rebuild it
+    const hiBlock = modal.querySelector('#hiBlock');
+    if (hiBlock) {
+      hiBlock.remove();
+
+      // Recreate the original username form-group at top of form
+      if (form) {
+        const newGroup = document.createElement('div');
+        newGroup.className = 'form-group';
+        newGroup.innerHTML = `
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter your username" required>
+        `;
+        form.insertBefore(newGroup, submitBtn);
+      }
+    }
+
+    return;
+  }
+
+  // LOGGED IN: switch to Sign out UI
+  if (form) form.setAttribute('onsubmit', 'handleSignout(event)');
+  if (title) title.textContent = 'Account';
+  if (hint) hint.textContent = 'You are signed in. Click Sign out to end your session.';
+  if (submitBtn) submitBtn.textContent = 'Sign out';
+
+  // Replace username input with "Hi, <name>"
+  if (formGroup) {
+    // Remove the input group
+    formGroup.remove();
+
+    // Insert "Hi" block once
+    if (!modal.querySelector('#hiBlock') && form) {
+      const hi = document.createElement('div');
+      hi.className = 'form-group';
+      hi.id = 'hiBlock';
+      hi.innerHTML = `
+        <label>Hi</label>
+        <p style="margin: 0.25rem 0 0; font-weight: 600;">${escapeHtml(name)}</p>
+      `;
+      form.insertBefore(hi, submitBtn);
+    }
+  }
+}
+
+// Small helper so usernames don't break HTML
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, (m) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
 
 // Preferences Handler
 function handlePreferences(event) {
   event.preventDefault();
   applyFilters();
   closePreferencesModal();
-  alert('Preferences saved!');
 }
 
 // Accordion Component
@@ -146,7 +229,7 @@ function getProductsByCategory(category) {
   }
   
   const categoryMap = {
-    'vegetables': ['Carrots', 'Broccoli', 'Apples'],
+    'produce': ['Carrots', 'Broccoli', 'Apples'],
     'proteins': ['Chicken Breast', 'Salmon Fillet', 'Organic Eggs'],
     'grains': ['Whole Wheat Bread', 'White Rice', 'Gluten-Free Bread'],
     'dairy': ['Milk']
@@ -241,9 +324,7 @@ function addToCart(productId) {
   renderProducts();
   
   // Show cart section if not already visible
-  if (!document.getElementById('cart-section').classList.contains('active')) {
-    showSection('cart');
-  } else {
+  if (document.getElementById('cart-section').classList.contains('active')) {
     renderCart();
   }
 }
@@ -332,9 +413,14 @@ function updateCartBadge() {
 
 // Accessibility - Large Text Toggle
 function toggleLargeText() {
-  const checkbox = document.getElementById('visionToggle') || document.getElementById('modalVisionToggle');
+  const checkbox = document.getElementById('modalVisionToggle').checked;
   if (checkbox) {
-    document.body.classList.toggle('large-text', checkbox.checked);
+    document.querySelector('#visionToggle').checked = true;
+    document.body.classList.add('large-text');
+  }
+  else{
+    document.querySelector('#visionToggle').checked = false;
+    document.body.classList.remove('large-text');
   }
 }
 

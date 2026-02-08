@@ -491,3 +491,14 @@ fieldset legend {
     gap: 1rem;
   }
 }
+
+/* Vision support mode */
+  .large-text {
+    font-size: 1.25rem;
+  }
+
+  .large-text input,
+  .large-text button {
+    font-size: 1.25rem;
+    padding: 0.6rem;
+  }
